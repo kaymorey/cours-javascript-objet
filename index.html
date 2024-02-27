@@ -1,40 +1,330 @@
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>JavaScript, un langage objet</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/custom.css" id="theme">
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/styles/stackoverflow-light.css" id="highlight-theme">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-color="rgb(200, 85, 61)" style="color: #FFF;">
+          <div style="padding-top: 0.8em; padding-bottom: 0.8em;">
+            <h1 style="color: #FFF;">JavaScript, un langage objet</h1>
+            <img src="images/intro.png" alt="" width="450">
+          </div>
+          <p>
+            <small>Katia Moreira</small><br>
+            <small>MMI 2 - 27/02/2024</small><br>
+          </p>
+        </section>
+        <section>
+          <h3 class="header-title">Un objet c'est quoi ?</h3>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+          <p>Un objet est une entité qui contient</p>
+          <div>
+            <ul>
+              <li>Des <strong>propriétés</strong> qui contiennent des <strong>données</strong></li>
+              <li>Des <strong>méthodes</strong> qui correspondent à des <strong>fonctions</strong></li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">Un objet c'est quoi ?</h3>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+          <p>Une personne, par exemple, peut être caractérisée par</p>
+          <div>
+            <ul>
+              <li>Des <strong>caractéristiques</strong> : Un nom, un prénom, une date de naissance...</li>
+              <li>Des <strong>fonctions</strong> : marcher, manger, parler...</li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h3 class="header-title">JavaScript, un langage objet</h3>
+
+          <ul>
+            <li>Les strings, booléens, array sont des objets en javascript</li>
+          </ul>
+          <pre><code data-trim class="javascript">
+            // name est un objet de type string
+            const name = "John";
+
+            // Accès à la propriété length de l'objet name
+            name.length;
+
+            // Appel de la méthode toUpperCase de l'objet name
+            name.toUpperCase();
+          </code></pre>
+        </section>
+        <section>
+          <h3 class="header-title">JavaScript, un langage objet</h3>
+
+          <p>Il existe donc</p>
+          <ul>
+            <li>les objets <strong>natifs</strong> existant dans le langage</li>
+            <li>les objets que vous allez <strong>créer</strong></li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="header-title">Créer des objets</h3>
+          <h4>1. Créer un objet littéral</h4>
+          <pre><code data-trim class="javascript">
+            const person = {
+              firstname: "John",
+              lastname: "Doe",
+              age: 30,
+              speak: () => {
+                console.log(`Hello, my name is ${this.firstname}`);
+              }
+            };
+
+            // Accès à la propriété firstname de l'objet person
+            person.firstname;
+
+            // Accès à la méthode speak de l'objet person
+            person.speak();
+
+            // Ajout d'une propriété à l'objet person
+            person.city = "Paris";
+          </code></pre>
+        </section>
+        <section>
+          <h3 class="header-title">Créer des objets</h3>
+          <ul>
+            <li>Les propriétés d'un objet littéral sont caractérisées par un couple <strong>clé-valeur</strong></li>
+            <li>On accède aux propriétés et aux méthodes de l'objet à l'aide du point <strong>"."</strong></li>
+            <li>Un objet peut en contenir <strong>un ou plusieurs autres</strong></li>
+          </ul>
+          <pre><code data-trim class="javascript">
+            const person = {
+              address: {
+                street: "Rue de la Paix",
+                city: "Paris"
+              }
+            };
+
+            // Accès à la propriété city de l'objet address
+            person.address.city;
+          </pre></code>
+        </section>
+        <section>
+          <h3 class="header-title">Créer des objets</h3>
+          <ul>
+            <li>La limitation de l'objet littéral c'est qu'on va devoir en créer une <strong>copie</strong> pour obtenir un 2ème objet similaire</li>
+            <li>Si on doit créer plusieurs objets similaires on va donc plutôt faire en sorte que chaque objet hérite d'un <strong>modèle</strong></li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="header-title">Créer des objets</h3>
+          <h4>2. Utiliser un prototype</h4>
+          <pre><code data-trim class="javascript">
+            function Person(firstname, lastname, age) {
+              this.firstname = firstname;
+              this.lastname = lastname;
+              this.age = age;
+            }
+
+            Person.prototype.speak = function() {
+              console.log(`Hello, my name is ${this.firstname}`);
+            };
+
+            const person1 = new Person("John", "Doe", 30);
+            person1.speak(); // Affiche "Hello, my name is John"
+
+            const person2 = new Person("Jane", "Doe", 25);
+            person2.speak(); // Affiche "Hello, my name is Jane"
+          </code></pre>
+        </section>
+        <section>
+          <h3 class="header-title">Créer des objets</h3>
+          <h4>3. Utiliser une classe</h4>
+          <pre><code data-trim class="javascript">
+            class Person {
+              constructor(firstname, lastname, age) {
+                this.firstname = firstname;
+                this.lastname = lastname;
+                this.age = age;
+              }
+
+              speak() {
+                console.log(`Hello, my name is ${this.firstname}`);
+              }
+            }
+
+            const person1 = new Person("John", "Doe", 30);
+            person1.speak(); // Affiche "Hello, my name is John"
+
+            const person2 = new Person("Jane", "Doe", 25);
+            person2.speak(); // Affiche "Hello, my name is Jane"
+          </code></pre>
+        </section>
+        <section>
+          <h3 class="header-title">La notion d'héritage</h3>
+          <ul>
+            <li>De la même manière qu'en PHP, une classe peut <strong>hériter</strong> d'une autre en JavaScript</li>
+            <li>On utilise pour cela le mot-clé <strong>extends</strong></li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="header-title">La notion d'héritage</h3>
+          <pre><code data-trim class="javascript">
+            class Person {
+              constructor(firstname, lastname, age) {
+                this.firstname = firstname;
+                this.lastname = lastname;
+                this.age = age;
+              }
+
+              speak() {
+                console.log(`Hello, my name is ${this.firstname}`);
+              }
+            }
+
+            class Student extends Person {
+              constructor(firstname, lastname, age, school) {
+                super(firstname, lastname, age);
+                this.school = school;
+              }
+
+              study() {
+                console.log(`I study at ${this.school}`);
+              }
+            }
+
+            const student1 = new Student("John", "Doe", 30, "Harvard");
+            student1.speak(); // Affiche "Hello, my name is John"
+            student1.study(); // Affiche "I study at Harvard"
+          </code></pre>
+        </section>
+        <section>
+          <h3 class="header-title">Le format JSON</h3>
+          <ul>
+            <li>Le JavaScript Object Notation (JSON) est un <strong>format de données</strong></li>
+            <li>Il permet de <strong>structurer</strong> des données de façon semblable aux <strong>objets JavaScript</strong></li>
+            <li>On accède donc aux données de la même manière qu'on le ferait pour un <strong>objet littéral</strong></li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="header-title">Le format JSON</h3>
+          <pre><code data-trim class="javascript">
+            // Fichier data.json
+            [
+              {
+                "pokedexId": 1,
+                "generation": 1,
+                "category": "Pokémon Graine",
+                "name": {
+                  "fr": "Bulbizarre",
+                  "en": "Bulbasaur",
+                  "jp": "フシギダネ"
+                }
+              }
+              ...
+            ]
+
+            const response = await fetch("data.json");
+            const pokemons = await response.json();
+            console.log(pokemons[0].name.fr);
+          </pre></code>
+        </section>
+        <section>
+          <h3 class="header-title">Les design patterns</h3>
+          <ul>
+            <li>Un design pattern ou <em>patron de conception</em> est une <strong>solution type</strong> à un problème de programmation <strong>courant</strong></li>
+            <li>Il fournit des <strong>structures</strong> et des <strong>directives</strong> pour la résolution de problèmes</li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="header-title">Les design patterns</h3>
+          <ul>
+            <li>Le modèle <strong>MVC</strong> (Modèle-Vue-Contrôleur) est un design pattern</li>
+            <li>Nous n'avons pas le temps de voir en détail les designs patterns mais je vous conseille ce site si vous voulez appronfondir le sujet :</li>
+          </ul>
+          <a href="https://www.patterns.dev/" target="_blank">
+            <figure>
+              <img src="images/patterns.png" alt="" width="350">
+              <figcaption style="font-size: 0.7em;">Patterns.dev</figcaption>
+            </figure>
+          </a>
+        </section>
+        <section>
+          <h3 class="header-title">Organiser votre code JavaScript à l'aide des objets</h3>
+          <ul>
+            <li>Les objets ne sont pas uniquement utiles pour gérer des données</li>
+            <li>Ils peuvent être utilisés pour <strong>structurer</strong> notre code</li>
+          </ul>
+        </section>
+        <section>
+          <h3 class="header-title">Organiser votre code JavaScript à l'aide des objets</h3>
+          <pre><code data-trim class="javascript">
+            import Modal from './Modal'
+            import Menu from './Menu'
+
+            class App {
+              constructor () {
+                this.modal = new Modal()
+                this.menu = new Menu()
+              }
+
+              init () {
+                this.modal.init()
+                this.menu.init()
+              }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              var app = new App()
+              app.init()
+            })
+          </code></pre>
+        </section>
+        <section data-background-color="rgb(200, 85, 61)">
+          <h2 style="padding-top: 20px; color: #FFF; line-height: 1.4em;">Merci pour votre attention 👩‍💻👨‍💻 !</h2>
+          <p style="color: #FFF; padding-top: 25px;">
+            Une question ?<br>
+          </p>
+          <ul>
+            <li>
+              🐦
+              <a style="color: #FFF;" href="https://twitter.com/kaymorey">Twitter @kaymorey</a>
+            </li>
+            <li>
+              💼
+              <a style="color: #FFF;" href="https://www.linkedin.com/in/katiamoreira/">Linkedin</a>
+            </li>
+            <li>
+              📧
+              <a style="color: #FFF;" href="mailto:bonjour@katiamoreira.fr">bonjour@katiamoreira.fr</a>
+            </li>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+      });
+    </script>
+  </body>
 </html>
